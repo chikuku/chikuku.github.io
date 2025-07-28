@@ -513,12 +513,12 @@
         const translations = {
             en: {
                 doc_title: "Annie Chen | Applied Data Scientist",
-                your_name_logo: "Annie Chen",
+                your_name_logo: "Annie.C",
                 nav_about: "About",
                 nav_projects: "Projects",
                 nav_contact: "Contact",
                 lang_switcher_text: "中文",
-                hero_title: "Hello, I'm <span>Annie Chen</span>",
+                hero_title: "Hello, I'm <span>Annie</span>",
                 hero_subtitle: "A business-oriented Data Scientist with 3+ years of experience, specializing in building ML models and data-driven solutions to solve complex business problems.",
                 hero_button: "View My Work",
                 about_title: "About Me",
@@ -573,7 +573,7 @@
             document.documentElement.lang = language;
         };
         const langSwitcher = document.getElementById('lang-switcher');
-        let currentLang = localStorage.getItem('lang') || 'zh';
+        let currentLang = localStorage.getItem('lang') || 'en';
         setLanguage(currentLang);
         langSwitcher.addEventListener('click', () => {
             currentLang = currentLang === 'en' ? 'zh' : 'en';
