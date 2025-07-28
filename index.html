@@ -17,13 +17,15 @@
     <style>
         /* --- CSS 變數，方便客製化主題 --- */
         :root {
-            --primary-color: #007bff; /* 專業的藍色 */
-            --secondary-color: #6c757d;
-            --background-color: #f8f9fa;
-            --text-color: #343a40;
-            --light-gray: #e9ecef;
+            --primary-color: #9C6D63; /* 專業的藍色 */
+            --secondary-color: #665A48; /* 次要色: 沉穩的暖灰色 */
+            --background-color: #F9F5F0; /* 背景色: 非常淺的暖米色 */
+            --text-color: #4F4A45;       /* 文字顏色: 深暖灰色 */
+            --light-gray: #E0D8CC;       /* 淺灰色/邊框: 柔和的褐色 */
             --white: #ffffff;
             --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            --send-btn-color: #487c7c; /* send msg color */
+            --send-btn-hover-color: #3a6b6b; /* send msg hover color */
         }
 
         /* --- 通用樣式 --- */
@@ -112,7 +114,7 @@
         }
         .lang-switcher span {
             font-weight: 600;
-            color: var(--primary-color);
+            color: var(--text-color);
         }
 
 
@@ -328,7 +330,7 @@
         }
 
         .send-btn {
-            background: var(--primary-color);
+            background: var(--send-btn-color);
             color: var(--white);
             border: none;
             border-radius: 50%;
@@ -342,7 +344,7 @@
             transition: background-color 0.3s;
         }
         .send-btn:hover {
-            background-color: #0056b3;
+            background-color: var(--send-btn-hover-color);
         }
 
 
@@ -482,7 +484,7 @@
                  <h2 class="section-title" data-i18n-key="contact_title">聯絡方式</h2>
                  <div class="contact-links">
                      <a href="mailto:annichenyt@gmail.com"><i class="fas fa-envelope"></i></a>
-                     <a href="https://www.linkedin.com/in/yingtzu-chen" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
+                     <a href="https://www.linkedin.com/in/yingtzu-chen/" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
                      <a href="https://github.com/chikuku" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
                  </div>
             </div>
