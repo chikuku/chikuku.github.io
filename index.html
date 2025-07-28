@@ -448,7 +448,7 @@
                             <p data-i18n-key="project1_desc">一個整合在此網站中的智慧型聊天機器人，使用客製化的 AI 技術棧建構。它利用 Flowise 進行視覺化工作流程編排，使用 OpenAI 進行語言理解，並部署在可擴展的雲端架構上。整個系統透過代理層進行保護，以確保 API 金鑰的安全。</p>
                             <div class="project-links">
                                 <a href="#chatbot" data-i18n-key="project_demo">線上預覽</a> 
-                                <a href="https://github.com/chikuku/chikuku.github.io" target="_blank" rel="noopener noreferrer">GitHub</a>
+                                <!-- <a href="https://github.com/chikuku/chikuku.github.io" target="_blank" rel="noopener noreferrer">GitHub</a> -->
                             </div>
                         </div>
                     </div>
@@ -458,7 +458,7 @@
                             <h3 data-i18n-key="project2_title">信用卡使用者信用預測</h3>
                             <p data-i18n-key="project2_desc">使用 Kaggle 十萬筆記錄的資料集，建立、訓練並調優監督式分類模型，以預測使用者信用評級。專案涵蓋數據前處理、探索性資料分析(EDA)，並訓練了決策樹、KNN、邏輯回歸等多種算法，最終以隨機森林達到最佳的0.81準確率。</p>
                              <div class="project-links">
-                                <a href="#" target="_blank" rel="noopener noreferrer" data-i18n-key="project_demo">線上預覽</a>
+                                <!-- <a href="#" target="_blank" rel="noopener noreferrer" data-i18n-key="project_demo">線上預覽</a> -->
                                 <a href="#" target="_blank" rel="noopener noreferrer">GitHub</a>
                             </div>
                         </div>
@@ -535,6 +535,7 @@
                 chatbot_title: "Chat With My AI Assistant (Building in Progress)",
                 chatbot_desc: 'I built this chatbot from scratch to answer questions about my skills and experience. Ask it anything! (e.g., "What databases do you know?" or "Tell me about your AI assistant project.")',
                 chatbot_loading: "Chatbot UI is loading...",
+                chat_placeholder: "Type your message here...",
                 contact_title: "Get In Touch",
                 footer_text: "&copy; 2025 Annie Chen. All rights reserved."
             },
@@ -560,6 +561,7 @@
                 chatbot_title: "與我的 AI 助理對話 （建造中）",
                 chatbot_desc: '這個聊天機器人是我從零開始打造的，用來回答關於我的技能和經驗的問題。可以問它任何事！ (例如：「你會哪些資料庫？」或「跟我介紹一下你的 AI 助理專案」)',
                 chatbot_loading: "聊天機器人介面載入中...",
+                chat_placeholder: "在這裡輸入訊息...",
                 contact_title: "聯絡方式",
                 footer_text: "&copy; 2025 Annie Chen. 版權所有."
             }
@@ -573,6 +575,12 @@
             });
             document.getElementById('lang-text').innerText = translations[language].lang_switcher_text;
             document.documentElement.lang = language;
+                    const chatInput = document.getElementById('chat-input');
+                    if (chatInput) {
+                        chatInput.placeholder = translations[language].chat_placeholder;
+            }
+        
+        
         };
         const langSwitcher = document.getElementById('lang-switcher');
         let currentLang = localStorage.getItem('lang') || 'en';
@@ -599,7 +607,7 @@
             chatbotContainer.innerHTML = `
                 <div class="chat-messages" id="chat-messages"></div>
                 <form class="chat-input-form" id="chat-form">
-                    <input type="text" id="chat-input" class="chat-input" placeholder="在這裡輸入訊息..." autocomplete="off">
+                    <input type="text" id="chat-input" class="chat-input" placeholder="" autocomplete="off">
                     <button type="submit" class="send-btn">
                         <i class="fas fa-paper-plane"></i>
                     </button>
