@@ -15,17 +15,16 @@
 
     <!-- All CSS is included inside this <style> tag for simplicity -->
     <style>
-        /* --- CSS 變數，方便客製化主題 --- */
+        /* --- CSS 變數 (Gigi Murin 主題調色盤) --- */
         :root {
-            --primary-color: #9C6D63; /* 專業的藍色 */
-            --secondary-color: #665A48; /* 次要色: 沉穩的暖灰色 */
-            --background-color: #F9F5F0; /* 背景色: 非常淺的暖米色 */
-            --text-color: #4F4A45;       /* 文字顏色: 深暖灰色 */
-            --light-gray: #E0D8CC;       /* 淺灰色/邊框: 柔和的褐色 */
-            --white: #ffffff;
-            --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            --send-btn-color: #487c7c; /* send msg color */
-            --send-btn-hover-color: #3a6b6b; /* send msg hover color */
+            --primary-color: #F58A4B;      /* 主色調: Gigi 的代表橘色 */
+            --secondary-color: #2C3E50;    /* 次要/文字色: 深海軍藍 */
+            --background-color: #FFFBF5;   /* 背景色: 溫暖的米白色 */
+            --text-color: #2C3E50;         /* 文字顏色: 深海軍藍 */
+            --light-gray: #EAEAEA;         /* 淺灰色/邊框 */
+            --white: #ffffff;              /* 卡片背景 */
+            --accent-color: #FFC857;       /* 強調色: Gigi 的金色點綴 */
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
 
         /* --- 通用樣式 --- */
@@ -37,7 +36,6 @@
         }
 
         body {
-            /* 英文用 Poppins, 中文用 Noto Sans TC */
             font-family: 'Poppins', 'Noto Sans TC', sans-serif;
             background-color: var(--background-color);
             color: var(--text-color);
@@ -117,18 +115,19 @@
             color: var(--text-color);
         }
 
-
-        /* --- 英雄區塊 --- */
+        /* --- 英雄區塊 (已合併關於我) --- */
         .hero {
-            height: 80vh;
+            min-height: 80vh;
+            height: auto;
             display: flex;
             align-items: center;
             text-align: center;
+            padding: 4rem 0;
         }
 
         .hero-content h1 {
             font-size: 3rem;
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
         }
         
         .hero-content h1 span {
@@ -136,12 +135,13 @@
         }
 
         .hero-content p {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: var(--secondary-color);
-            margin-bottom: 2rem;
-            max-width: 800px;
+            margin-bottom: 2.5rem;
+            max-width: 750px;
             margin-left: auto;
             margin-right: auto;
+            line-height: 1.8;
         }
 
         .btn {
@@ -157,7 +157,7 @@
 
         .btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+            box-shadow: 0 4px 15px rgba(245, 138, 75, 0.4);
         }
 
         /* --- 區塊通用樣式 --- */
@@ -171,16 +171,8 @@
             margin-bottom: 3rem;
         }
         
-        section#about, section#projects, section#chatbot {
+        section#projects, section#chatbot {
             background-color: var(--white);
-        }
-        
-        .card {
-            background: var(--white);
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: var(--box-shadow);
-            margin-bottom: 2rem;
         }
         
         /* 技能區塊 */
@@ -250,16 +242,16 @@
             border: 1px solid var(--light-gray);
             border-radius: 8px;
             display: flex;
-            flex-direction: column; /* 垂直排列 */
+            flex-direction: column; 
             background: var(--white);
             box-shadow: var(--box-shadow);
-            overflow: hidden; /* 隱藏超出範圍的內容 */
+            overflow: hidden; 
         }
 
         .chat-messages {
             flex-grow: 1;
             padding: 1rem;
-            overflow-y: auto; /* 內容過多時顯示滾動條 */
+            overflow-y: auto; 
             display: flex;
             flex-direction: column;
         }
@@ -275,14 +267,14 @@
         .message.user {
             background-color: var(--primary-color);
             color: var(--white);
-            align-self: flex-end; /* 使用者訊息靠右 */
+            align-self: flex-end; 
             border-bottom-right-radius: 4px;
         }
 
         .message.bot {
             background-color: var(--light-gray);
             color: var(--text-color);
-            align-self: flex-start; /* 機器人訊息靠左 */
+            align-self: flex-start; 
             border-bottom-left-radius: 4px;
         }
         
@@ -299,6 +291,7 @@
         .message.bot.typing span:nth-child(2) {
             animation-delay: 0.2s;
         }
+        
         .message.bot.typing span:nth-child(3) {
             animation-delay: 0.4s;
         }
@@ -330,8 +323,8 @@
         }
 
         .send-btn {
-            background: var(--send-btn-color);
-            color: var(--white);
+            background: var(--accent-color);
+            color: var(--text-color);
             border: none;
             border-radius: 50%;
             width: 45px;
@@ -341,12 +334,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, transform 0.2s;
         }
         .send-btn:hover {
-            background-color: var(--send-btn-hover-color);
+            background-color: #FFD700; /* Gold */
+            transform: scale(1.1);
         }
-
 
         /* --- 聯絡區塊 --- */
         .contact-links {
@@ -379,12 +372,11 @@
     <!-- Header and Navigation -->
     <header class="main-header">
         <div class="container">
-            <a href="#" class="logo" data-i18n-key="your_name_logo">Annie Chen</a>
+            <a href="#" class="logo" data-i18n-key="your_name_logo">Annie.C</a>
             <nav class="main-nav">
                 <ul>
-                    <li><a href="#about" data-i18n-key="nav_about">關於我</a></li>
-                    <li><a href="#projects" data-i18n-key="nav_projects">專案</a></li>
-                    <li><a href="#contact" data-i18n-key="nav_contact">聯絡我</a></li>
+                    <li><a href="#projects" data-i18n-key="nav_projects">Projects</a></li>
+                    <li><a href="#contact" data-i18n-key="nav_contact">Contact</a></li>
                 </ul>
                 <div class="lang-switcher" id="lang-switcher">
                     <i class="fas fa-globe"></i>
@@ -399,28 +391,16 @@
         <!-- Hero Section -->
         <section class="hero">
             <div class="container hero-content">
-                <h1 data-i18n-key="hero_title">你好，我是 <span>Annie Chen</span></h1>
-                <p data-i18n-key="hero_subtitle">一位以業務為導向的資料科學家，擁有超過3年經驗，專注於建構機器學習模型與數據驅動的解決方案來解決複雜的商業問題。</p>
-                <a href="#projects" class="btn" data-i18n-key="hero_button">查看我的作品</a>
+                <h1 data-i18n-key="hero_title">Hello, I'm <span>Annie</span></h1>
+                <p data-i18n-key="hero_subtitle">As a recent graduate from UT Dallas with a Master's in IT and Management, I blend a strong business acumen with deep technical expertise. With over 3 years of hands-on experience, I specialize in designing and implementing end-to-end machine learning workflows, from ETL pipelines to model deployment. I am particularly skilled in statistical analysis and A/B testing to drive strategic decisions and deliver measurable business impact.</p>
+                <a href="#projects" class="btn" data-i18n-key="hero_button">View My Work</a>
             </div>
         </section>
 
-        <!-- About Me Section -->
-        <section id="about">
-            <div class="container">
-                <h2 class="section-title" data-i18n-key="about_title">關於我</h2>
-                <div class="card">
-                    <p data-i18n-key="about_text">
-                        作為德州大學達拉斯分校資訊技術與管理碩士的應屆畢業生，我融合了紮實的商業頭腦與深厚的技術專業。憑藉超過3年的實務經驗，我專精於設計與實現端到端的機器學習工作流程——從 ETL 數據管道到模型部署。我尤其擅長透過統計分析和 A/B 測試來驅動策略決策，並創造可衡量的商業影響力。
-                    </p>
-                </div>
-            </div>
-        </section>
-        
         <!-- Skills Section -->
         <section id="skills">
             <div class="container">
-                <h2 class="section-title" data-i18n-key="skills_title">我的技能</h2>
+                <h2 class="section-title" data-i18n-key="skills_title">My Skills</h2>
                  <div class="skills-grid">
                     <div class="skill-item">Python (Pandas, NumPy)</div>
                     <div class="skill-item">SQL (MySQL, Postgres)</div>
@@ -439,26 +419,26 @@
         <!-- Projects Section -->
         <section id="projects">
             <div class="container">
-                <h2 class="section-title" data-i18n-key="projects_title">專案作品</h2>
+                <h2 class="section-title" data-i18n-key="projects_title">Projects</h2>
                 <div class="projects-grid">
                     <!-- Project 1: AI Chatbot (This Project!) -->
                     <div class="project-card">
                         <div class="project-card-content">
-                            <h3 data-i18n-key="project1_title">作品集 AI 助理</h3>
-                            <p data-i18n-key="project1_desc">一個整合在此網站中的智慧型聊天機器人，使用客製化的 AI 技術棧建構。它利用 Flowise 進行視覺化工作流程編排，使用 OpenAI 進行語言理解，並部署在可擴展的雲端架構上。整個系統透過代理層進行保護，以確保 API 金鑰的安全。</p>
+                            <h3 data-i18n-key="project1_title">Portfolio AI Assistant</h3>
+                            <p data-i18n-key="project1_desc">An intelligent chatbot integrated into this website, built with a custom AI stack. It uses Flowise for visual workflow orchestration, OpenAI for language understanding, and is deployed on a scalable cloud architecture. The entire system is secured with a proxy layer to protect API keys.</p>
                             <div class="project-links">
-                                <a href="#chatbot" data-i18n-key="project_demo">線上預覽</a> 
-                                <!-- <a href="https://github.com/chikuku/chikuku.github.io" target="_blank" rel="noopener noreferrer">GitHub</a> -->
+                                <a href="#chatbot" data-i18n-key="project_demo">Live Demo</a> 
+                                <a href="https://github.com/chikuku/chikuku.github.io" target="_blank" rel="noopener noreferrer">GitHub</a>
                             </div>
                         </div>
                     </div>
                     
                     <div class="project-card">
                         <div class="project-card-content">
-                            <h3 data-i18n-key="project2_title">信用卡使用者信用預測</h3>
-                            <p data-i18n-key="project2_desc">使用 Kaggle 十萬筆記錄的資料集，建立、訓練並調優監督式分類模型，以預測使用者信用評級。專案涵蓋數據前處理、探索性資料分析(EDA)，並訓練了決策樹、KNN、邏輯回歸等多種算法，最終以隨機森林達到最佳的0.81準確率。</p>
+                            <h3 data-i18n-key="project2_title">Credit Card User Credit Prediction</h3>
+                            <p data-i18n-key="project2_desc">Built, trained, and tuned supervised classification models to predict user credit ratings using a Kaggle dataset of 100k records. The project involved data preprocessing, EDA, and training multiple algorithms, with Random Forest selected as the best performer with 0.81 accuracy.</p>
                              <div class="project-links">
-                                <!-- <a href="#" target="_blank" rel="noopener noreferrer" data-i18n-key="project_demo">線上預覽</a> -->
+                                <a href="#" target="_blank" rel="noopener noreferrer" data-i18n-key="project_demo">Live Demo</a>
                                 <a href="#" target="_blank" rel="noopener noreferrer">GitHub</a>
                             </div>
                         </div>
@@ -470,10 +450,10 @@
         <!-- Chatbot Section -->
         <section id="chatbot">
             <div class="container">
-                <h2 class="section-title" data-i18n-key="chatbot_title">與我的 AI 助理對話</h2>
-                <p style="text-align:center; max-width: 700px; margin: -2rem auto 2rem auto;" data-i18n-key="chatbot_desc">這個聊天機器人是我從零開始打造的，用來回答關於我的技能和經驗的問題。可以問它任何事！ (例如：「你會哪些資料庫？」或「跟我介紹一下你的 AI 助理專案」)</p>
+                <h2 class="section-title" data-i18n-key="chatbot_title">Chat With My AI Assistant (Building in Progress)</h2>
+                <p style="text-align:center; max-width: 700px; margin: -2rem auto 2rem auto;" data-i18n-key="chatbot_desc">I built this chatbot from scratch to answer questions about my skills and experience. Ask it anything! (e.g., "What databases do you know?" or "Tell me about your AI assistant project.")</p>
                 <div id="chatbot-container">
-                    <!-- 聊天機器人 UI 將會被 JavaScript 注入到這裡 -->
+                    <!-- Chatbot UI will be injected here by JavaScript -->
                 </div>
             </div>
         </section>
@@ -481,7 +461,7 @@
         <!-- Contact Section -->
         <section id="contact">
             <div class="container">
-                 <h2 class="section-title" data-i18n-key="contact_title">聯絡方式</h2>
+                 <h2 class="section-title" data-i18n-key="contact_title">Get In Touch</h2>
                  <div class="contact-links">
                      <a href="mailto:annichenyt@gmail.com"><i class="fas fa-envelope"></i></a>
                      <a href="https://www.linkedin.com/in/yingtzu-chen/" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
@@ -495,7 +475,7 @@
     <!-- Footer -->
     <footer class="main-footer">
         <div class="container">
-            <p data-i18n-key="footer_text">&copy; 2025 Annie Chen. 版權所有.</p>
+            <p data-i18n-key="footer_text">&copy; 2025 Annie Chen. All rights reserved.</p>
         </div>
     </footer>
 
@@ -516,19 +496,22 @@
             en: {
                 doc_title: "Annie Chen | Applied Data Scientist",
                 your_name_logo: "Annie.C",
-                nav_about: "About",
                 nav_projects: "Projects",
                 nav_contact: "Contact",
-                lang_switcher_text: "中文",
+                lang_switcher_text: "中",
                 hero_title: "Hello, I'm <span>Annie</span>",
-                hero_subtitle: "A business-oriented Data Scientist with 3+ years of experience, specializing in building ML models and data-driven solutions to solve complex business problems.",
+                hero_subtitle: 
+                    " Curious about users<br>\
+                    Obsessed with data <br>\
+                    I am a data scientist who turns business problems into tech solutions",
                 hero_button: "View My Work",
-                about_title: "About Me",
-                about_text: "As a recent graduate from UT Dallas with a Master's in IT and Management, I blend a strong business acumen with deep technical expertise. With over 3 years of hands-on experience, I specialize in designing and implementing end-to-end machine learning workflows, from ETL pipelines to model deployment. I am particularly skilled in statistical analysis and A/B testing to drive strategic decisions and deliver measurable business impact.",
                 skills_title: "My Skills",
                 projects_title: "Projects",
                 project1_title: "Portfolio AI Assistant",
-                project1_desc: "An intelligent chatbot integrated into this website, built with a custom AI stack. It uses Flowise for visual workflow orchestration, OpenAI for language understanding, and is deployed on a scalable cloud architecture. The entire system is secured with a proxy layer to protect API keys.",
+                project1_desc: "An intelligent chatbot integrated into this website, built with a custom AI stack.\
+                    It uses Flowise for visual workflow orchestration, OpenAI for language understanding,\
+                    and is deployed on a scalable cloud architecture.\
+                    The entire system is secured with a proxy layer to protect API keys.",
                 project2_title: "Credit Card User Credit Prediction",
                 project2_desc: "Built, trained, and tuned supervised classification models to predict user credit ratings using a Kaggle dataset of 100k records. The project involved data preprocessing, EDA, and training multiple algorithms, with Random Forest selected as the best performer with 0.81 accuracy.",
                 project_demo: "Live Demo",
@@ -537,22 +520,18 @@
                 chatbot_loading: "Chatbot UI is loading...",
                 chat_placeholder: "Type your message here...",
                 contact_title: "Get In Touch",
-                footer_text: "&copy; 2025 Annie Chen. All rights reserved."
+                footer_text: "&copy; 2025 Annie Chen. All rights reserved.",
+                chat_error: "Sorry, I'm having some trouble right now. Please try again later."
             },
             zh: {
                 doc_title: "Annie Chen | 應用資料科學家",
                 your_name_logo: "Annie Chen",
-                nav_about: "關於我",
                 nav_projects: "專案",
                 nav_contact: "聯絡我",
                 lang_switcher_text: "EN",
                 hero_title: "你好，我是 <span>Annie Chen</span>",
-                hero_subtitle: 
-                    "熱愛打造產品，擁有超過3年經驗，專注於建構機器學習模型與數據驅動的解決方案來解決複雜的商業問題。",
+                hero_subtitle: "作為德州大學達拉斯分校資訊技術與管理碩士的應屆畢業生，我融合了紮實的商業頭腦與深厚的技術專業。憑藉超過3年的實務經驗，我專精於設計與實現端到端的機器學習工作流程——從 ETL 數據管道到模型部署。我尤其擅長透過統計分析和 A/B 測試來驅動策略決策，並創造可衡量的商業影響力。",
                 hero_button: "查看我的作品",
-                about_title: "關於我",
-                about_text: 
-                    "作為德州大學達拉斯分校資訊技術與管理碩士的應屆畢業生，我融合了紮實的商業頭腦與深厚的技術專業。憑藉超過3年的實務經驗，我專精於設計與實現端到端的機器學習工作流程——從 ETL 數據管道到模型部署。我尤其擅長透過統計分析和 A/B 測試來驅動策略決策，並創造可衡量的商業影響力。",
                 skills_title: "我的技能",
                 projects_title: "專案作品",
                 project1_title: "作品集 AI 助理",
@@ -565,7 +544,8 @@
                 chatbot_loading: "聊天機器人介面載入中...",
                 chat_placeholder: "在這裡輸入訊息...",
                 contact_title: "聯絡方式",
-                footer_text: "&copy; 2025 Annie Chen. 版權所有."
+                footer_text: "&copy; 2025 Annie Chen. 版權所有.",
+                chat_error: "抱歉，我現在遇到了一些問題，請稍後再試。"
             }
         };
         const setLanguage = (language) => {
@@ -577,12 +557,11 @@
             });
             document.getElementById('lang-text').innerText = translations[language].lang_switcher_text;
             document.documentElement.lang = language;
-                    const chatInput = document.getElementById('chat-input');
-                    if (chatInput) {
-                        chatInput.placeholder = translations[language].chat_placeholder;
+            
+            const chatInput = document.getElementById('chat-input');
+            if (chatInput) {
+                chatInput.placeholder = translations[language].chat_placeholder;
             }
-        
-        
         };
         const langSwitcher = document.getElementById('lang-switcher');
         let currentLang = localStorage.getItem('lang') || 'en';
@@ -615,41 +594,38 @@
                     </button>
                 </form>
             `;
+            
+            const chatInput = document.getElementById('chat-input');
+            if (chatInput) {
+                chatInput.placeholder = translations[currentLang].chat_placeholder;
+            }
 
             // 獲取剛剛建立的元素
             const chatForm = document.getElementById('chat-form');
-            const chatInput = document.getElementById('chat-input');
             const chatMessages = document.getElementById('chat-messages');
 
             // 監聽表單提交事件
             chatForm.addEventListener('submit', async (e) => {
-                e.preventDefault(); // 防止頁面重新整理
+                e.preventDefault(); 
                 const message = chatInput.value.trim();
-                if (!message) return; // 如果訊息為空，則不執行任何操作
+                if (!message) return; 
 
-                // 將使用者訊息新增到畫面上
                 addMessage(message, 'user');
-                chatInput.value = ''; // 清空輸入框
+                chatInput.value = ''; 
 
-                // 顯示「正在輸入中...」的提示
                 showTypingIndicator();
 
                 try {
-                    // 發送訊息到我們的代理
                     const response = await sendMessageToProxy(message);
                     
-                    // 移除「正在輸入中...」的提示
                     removeTypingIndicator();
 
-                    // 將機器人回覆新增到畫面上
                     addMessage(response.text, 'bot');
 
                 } catch (error) {
-                    // 移除「正在輸入中...」的提示
                     removeTypingIndicator();
-                    // 處理錯誤
                     console.error("Error communicating with the proxy:", error);
-                    addMessage("抱歉，我現在遇到了一些問題，請稍後再試。", 'bot');
+                    addMessage(translations[currentLang].chat_error, 'bot');
                 }
             });
         }
@@ -663,7 +639,6 @@
                 },
                 body: JSON.stringify({
                     question: message,
-                    // Flowise 的某些 Agent 需要 history
                     history: chatHistory 
                 }),
             });
@@ -674,7 +649,6 @@
 
             const data = await response.json();
             
-            // 更新聊天紀錄
             chatHistory.push({ type: 'user', message: message });
             chatHistory.push({ type: 'ai', message: data.text });
             
@@ -688,7 +662,6 @@
             messageElement.classList.add('message', type);
             messageElement.textContent = text;
             chatMessages.appendChild(messageElement);
-            // 自動滾動到最新的訊息
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
@@ -712,7 +685,6 @@
         }
 
         // --- 程式進入點 ---
-        // 當頁面完全載入後，執行 renderChatbot 函式
         window.addEventListener('DOMContentLoaded', renderChatbot);
         
     </script>
