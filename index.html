@@ -547,10 +547,12 @@
                 nav_contact: "聯絡我",
                 lang_switcher_text: "EN",
                 hero_title: "你好，我是 <span>Annie Chen</span>",
-                hero_subtitle: "熱愛打造產品，擁有超過3年經驗，專注於建構機器學習模型與數據驅動的解決方案來解決複雜的商業問題。",
+                hero_subtitle: 
+                    "熱愛打造產品，擁有超過3年經驗，專注於建構機器學習模型與數據驅動的解決方案來解決複雜的商業問題。",
                 hero_button: "查看我的作品",
                 about_title: "關於我",
-                about_text: "作為德州大學達拉斯分校資訊技術與管理碩士的應屆畢業生，我融合了紮實的商業頭腦與深厚的技術專業。憑藉超過3年的實務經驗，我專精於設計與實現端到端的機器學習工作流程——從 ETL 數據管道到模型部署。我尤其擅長透過統計分析和 A/B 測試來驅動策略決策，並創造可衡量的商業影響力。",
+                about_text: 
+                    "作為德州大學達拉斯分校資訊技術與管理碩士的應屆畢業生，我融合了紮實的商業頭腦與深厚的技術專業。憑藉超過3年的實務經驗，我專精於設計與實現端到端的機器學習工作流程——從 ETL 數據管道到模型部署。我尤其擅長透過統計分析和 A/B 測試來驅動策略決策，並創造可衡量的商業影響力。",
                 skills_title: "我的技能",
                 projects_title: "專案作品",
                 project1_title: "作品集 AI 助理",
@@ -602,7 +604,7 @@
         // 聊天紀錄，用來發送給 Flowise
         let chatHistory = [];
 
-        // 渲染聊天機器人 UI 的函式
+        // Chatbot UI - 渲染聊天機器人 UI 的函式
         function renderChatbot() {
             chatbotContainer.innerHTML = `
                 <div class="chat-messages" id="chat-messages"></div>
