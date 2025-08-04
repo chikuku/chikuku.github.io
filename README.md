@@ -12,9 +12,9 @@ This portfolio website is designed to showcase my skills and project experience 
 
 To achieve this, I designed and implemented a complete, secure, and scalable technical architecture that covers frontend interaction, a backend proxy layer, and the core AI service.
 
-## ✨ Key Features
+## Key Features
 
-* **Interactive AI Assistant**: An intelligent chatbot built with Flowise and powered by the OpenAI API, capable of understanding natural language and providing relevant information.
+* **Interactive AI Assistant Chatbot**: An intelligent chatbot built with Flowise and powered by the OpenAI API, capable of understanding natural language and providing relevant information.
 * **Bilingual (English/Chinese) Support**: Client-side i18n (internationalization) implemented with JavaScript, allowing visitors to switch languages seamlessly.
 * **Responsive Web Design (RWD)**: Ensures a consistent and optimal viewing experience across desktops, tablets, and mobile devices.
 * **Secure API Key Management**: Utilizes a Cloudflare Worker as a secure proxy server to protect backend API keys from being exposed on the frontend.
