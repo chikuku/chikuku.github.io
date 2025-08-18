@@ -1,16 +1,14 @@
 # Annie Chen's Personal Portfolio Website
 
-Welcome to the GitHub repository for my personal portfolio website! This project is more than just a static page; it integrates a custom AI assistant designed to showcase my skills in full-stack development, cloud deployment, and AI applications.
+Welcome! This site showcases my working experience and my love for turning whimsical ideas into real-world products from 0 to 1.
+It’s a static-first website with an embedded, LLM-powered AI chatroom. The site shows how I connect market/user research, data analysis, and lean AI prototypes before scaling to production. 
 
-**[➡️ Visit the Live Website](https://chikuku.github.io)**
+**[➡️ Visit the My Webiste: AnnieWhimsyStack.com](https://chikuku.github.io)**
 
 ---
 
 ## Project Overview
-
-This portfolio website is designed to showcase my skills and project experience to potential employers and collaborators. The core feature is an interactive AI chatbot that can answer questions about my professional background, skills, and the projects I've worked on.
-
-To achieve this, I designed and implemented a complete, secure, and scalable technical architecture that covers frontend interaction, a backend proxy layer, and the core AI service.
+This portfolio showcases my skills and project experience for employers and collaborators. It’s an ongoing site that I update regularly with new case studies and demos. It also serves as a living lab where I explore and demonstrate applications built with the latest AI/LLM tools. I wish the work on delivered ML end to end—from product and connecting ideas can inspire people who also passionate with build applications.
 
 ## Key Features
 
@@ -18,3 +16,55 @@ To achieve this, I designed and implemented a complete, secure, and scalable tec
 * **Bilingual (English/Chinese) Support**: Client-side i18n (internationalization) implemented with JavaScript, allowing visitors to switch languages seamlessly.
 * **Responsive Web Design (RWD)**: Ensures a consistent and optimal viewing experience across desktops, tablets, and mobile devices.
 * **Secure API Key Management**: Utilizes a Cloudflare Worker as a secure proxy server to protect backend API keys from being exposed on the frontend.
+
+**Website Overview**
+
+```mermaid
+flowchart TB
+  %% Top-to-Bottom overview
+  User([User Browser])
+  CF[Cloudflare: DNS + Proxy + CDN]
+
+  subgraph Site[Website: GitHub Pages]
+    direction TB
+    Pages[Static Pages: hero, projects, contact]
+    ChatUI[Chatbot UI: /chat embedded widget]
+  end
+
+  %% Static delivery: edge -> static pages
+  User --> CF
+  CF --> Pages
+  CF --> ChatUI
+
+  %% Chatbot path: UI -> Cloudflare Worker -> Railway
+  CFWorker[Cloudflare Worker: secure API proxy]
+  Railway[Railway: Backend API]
+  ChatUI -->|HTTPS /api/*| CFWorker
+  CFWorker --> Railway
+```
+
+**LLM AI Chatbot Data Flow**
+
+```mermaid
+flowchart LR
+  %% direction: Left-to-Right or top-to-bottom: "flowchart TB"
+  User([User])
+  CF[Cloudflare Proxy / CDN]
+
+  subgraph Railway[Railway: Server + DB]
+    direction TB
+    API[Backend API / Server]
+    Flowise[Flowise LLM Orchestrator + RAG]
+    DB[(PostgreSQL: Chat History)]
+    API --> Flowise
+    Flowise <--> DB
+  end
+
+  OpenAI[(OpenAI API)]
+
+  %% 外層資料流
+  User --> CF --> API
+  Flowise <--> OpenAI
+  API --> CF --> User
+
+```
