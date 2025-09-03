@@ -174,6 +174,7 @@
         .send-btn {
             background: var(--accent-color);
             color: white;
+            transition: background-color 0.3s, opacity 0.3s;
         }
         .send-btn:hover {
             background-color: #fb923c; /* orange-400 */
@@ -198,6 +199,20 @@
             justify-content: center;
             text-align: center;
             background-color: var(--card-bg-color);
+        }
+        .suggestion-btn {
+            background-color: var(--card-bg-color);
+            border: 1px solid var(--border-color);
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .suggestion-btn:hover {
+            background-color: #f3f4f6; /* gray-100 */
+            border-color: #d1d5db; /* gray-300 */
         }
     </style>
 </head>
@@ -283,7 +298,7 @@
                             我在資料分析、資料庫管理和雲端運算方面擁有扎實的基礎。我渴望運用我的學術知識和專案經驗，為一個充滿活力的團隊做出貢獻，並解決真實世界的數據挑戰。
                         </p>
                         <div class="flex flex-wrap gap-8">
-                            <div class="text-center">
+                            <div class="text-center ">
                                 <span class="text-4xl font-bold accent-text">3+</span>
                                 <p class="text-gray-500 mt-1" data-i18n-key="about_exp">年經驗</p>
                             </div>
@@ -291,16 +306,16 @@
                                 <span class="text-4xl font-bold accent-text">10+</span>
                                 <p class="text-gray-500 mt-1" data-i18n-key="about_projects">個已完成專案</p>
                             </div>
-                            <div class="text-center">
+                        <!--    <div class="text-center">
                                 <span class="text-4xl font-bold accent-text">2+</span>
                                 <p class="text-gray-500 mt-1" data-i18n-key="about_companies">間曾任職公司</p>
                             </div>
-                        </div>
-                        <div class="mt-10">
+                        </div> -->
+                        <!-- <div class="mt-10">
                             <a href="#" class="border-2 border-orange-500 text-orange-500 font-semibold py-3 px-8 rounded-full hover:bg-orange-500 hover:text-white transition-all" data-i18n-key="about_cv_button">
                                 下載履歷 <i class="fas fa-download ml-2"></i>
                             </a>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -544,6 +559,10 @@
                     chatbot_subtitle: "I built this assistant from scratch to answer questions about my skills, projects, and experience. Ask it anything! (e.g., \"What databases do you know?\" or \"Tell me about your chatbot project.\")",
                     contact_title: "Get In Touch",
                     contact_subtitle: "Have a project in mind? Let's connect!",
+                    suggestion_title: "Not sure where to start? Try asking:",
+                    suggestion1: "Tell me about yourself",
+                    suggestion2: "What programming languages do you know?",
+                    suggestion3: "Tell me about your credit card prediction project",
                     footer_text: "© 2024 Annie. All Rights Reserved.",
                     chat_placeholder: "Type your message here... (max 50 words)",
                     chat_error: "Sorry, I'm having some trouble right now. Please try again later.",
@@ -593,8 +612,12 @@
                     work2_role: "應用資料科學家",
                     work2_company: "豆沙科技股份有限公司（台灣）",
                     chatbot_title: "與 AI 助理Grem 聊天",
-                    chatbot_subtitle: "這個機器人是我從零開始打造的，它能回答關於我的技能、專案和經歷的問題。試著問問它吧！（例如：「你會哪些資料庫？」或「介紹一下你的聊天機器人專案。」）",
+                    chatbot_subtitle: "此機器人採用Flowise作為協調LLM架構之工具，連接包含RAG資料庫與OpenAI來實現客製化回應功能。",
                     contact_title: "聯絡我",
+                    suggestion_title: "不確定該問什麼嗎，試試：",
+                    suggestion1: "介紹一下你自己",
+                    suggestion2: "你會哪些程式語言？",
+                    suggestion3: "聊聊你的信用卡預測專案",
                     contact_subtitle: "有任何專案想法嗎？讓我們聊聊！",
                     footer_text: "© 2025 Annie. 版權所有。",
                     chat_placeholder: "在這裡輸入訊息... (最多 50 字)",
@@ -646,7 +669,16 @@
 
             function renderChatbot() {
                 chatbotContainer.innerHTML = `
-                    <div class="chat-messages" id="chat-messages"></div>
+                    <div class="chat-messages" id="chat-messages">
+                        <div id="chat-suggestions" class="p-4 text-center m-auto">
+                            <h4 class="text-gray-600 font-semibold mb-3" data-i18n-key="suggestion_title">${translations[currentLang].suggestion_title}</h4>
+                            <div class="flex flex-wrap justify-center gap-2">
+                                <button class="suggestion-btn" data-i18n-key="suggestion1">${translations[currentLang].suggestion1}</button>
+                                <button class="suggestion-btn" data-i18n-key="suggestion2">${translations[currentLang].suggestion2}</button>
+                                <button class="suggestion-btn" data-i18n-key="suggestion3">${translations[currentLang].suggestion3}</button>
+                            </div>
+                        </div>
+                    </div>
                     <form class="chat-input-form" id="chat-form">
                         <div class="flex-grow">
                             <input type="text" id="chat-input" class="chat-input w-full" placeholder="${translations[currentLang].chat_placeholder}" autocomplete="off">
@@ -656,14 +688,15 @@
                             </div>
                         </div>
                         <button type="submit" class="send-btn w-11 h-11 rounded-full flex items-center justify-center transition-transform hover:scale-105 ml-2 self-end mb-1 flex-shrink-0"><i class="fas fa-paper-plane"></i></button>
-
                     </form>
                 `;
+                
                 const chatInput = document.getElementById('chat-input');
                 const charCounter = document.getElementById('char-counter');
                 const counterContainer = document.getElementById('counter-container');
                 const sendBtn = document.getElementById('chat-form').querySelector('.send-btn');
-                const MAX_CHARS = 50;
+                const chatForm = document.getElementById('chat-form');
+                const MAX_CHARS = 150;
 
                 chatInput.addEventListener('input', () => {
                     const message = chatInput.value;
@@ -673,6 +706,7 @@
                         sendBtn.disabled = false;
                         return;
                     }
+                    
                     counterContainer.style.display = 'block';
                     const charCount = message.length;
                     const remaining = MAX_CHARS - charCount;
@@ -692,8 +726,10 @@
                     }
                 });
 
-                document.getElementById('chat-form').addEventListener('submit', async (e) => {
+                chatForm.addEventListener('submit', async (e) => {
                     e.preventDefault();
+                    const message = chatInput.value.trim();
+                    
                     if (!message || sendBtn.disabled) {
                         return;
                     }
@@ -701,7 +737,7 @@
                     addMessage(message, 'user');
                     chatInput.value = '';
                     chatInput.dispatchEvent(new Event('input'));
-
+                    
                     showTypingIndicator();
 
                     try {
@@ -714,10 +750,22 @@
                         addMessage(translations[currentLang].chat_error, 'bot', true);
                     }
                 });
+                
+                document.querySelectorAll('.suggestion-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        chatInput.value = btn.innerText;
+                        chatForm.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+                    });
+                });
             }
 
             function addMessage(text, type, isError = false) {
                 const chatMessages = document.getElementById('chat-messages');
+                const suggestions = document.getElementById('chat-suggestions');
+                if (suggestions) {
+                    suggestions.remove();
+                }
+
                 const msg = document.createElement('div');
                 msg.classList.add('message', type);
                 if (isError) {
