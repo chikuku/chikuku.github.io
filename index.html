@@ -1,97 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n-key="doc_title">Annie Chen | 應用資料科學家</title>
+    <title data-i18n-key="doc_title">Annie | 應用資料科學家</title>
     
-    <!-- Google Fonts: A clean, professional font -->
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome (for icons) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-    <!-- All CSS is included inside this <style> tag for simplicity -->
     <style>
-        /* --- CSS 變數 (Gigi Murin 主題調色盤) --- */
         :root {
-            --primary-color: #F58A4B;      /* 主色調: Gigi 的代表橘色 */
-            --secondary-color: #2C3E50;    /* 次要/文字色: 深海軍藍 */
-            --background-color: #FFFBF5;   /* 背景色: 溫暖的米白色 */
-            --text-color: #2C3E50;         /* 文字顏色: 深海軍藍 */
-            --light-gray: #EAEAEA;         /* 淺灰色/邊框 */
-            --white: #ffffff;              /* 卡片背景 */
-            --accent-color: #FFC857;       /* 強調色: Gigi 的金色點綴 */
-            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --bg-color: #f3f4f6; /* 灰色底 */
+            --text-color: #1f2937; /* 黑色標題 */
+            --accent-color: #f97316; /* 橘色字 */
+            --card-bg-color: #ffffff;
+            --border-color: #e5e7eb;
         }
-
-        /* --- 通用樣式 --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            scroll-behavior: smooth;
-        }
-
         body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
             font-family: 'Poppins', 'Noto Sans TC', sans-serif;
-            background-color: var(--background-color);
-            color: var(--text-color);
-            line-height: 1.6;
         }
-
-        .container {
-            max-width: 1100px;
-            margin: auto;
-            padding: 0 2rem;
+        .navbar {
+            transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
         }
-
-        /* --- 頁首與導覽列 --- */
-        .main-header {
-            background: var(--white);
-            padding: 1rem 0;
-            position: sticky;
+        .navbar-scrolled {
+            background-color: var(--card-bg-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .accent-text {
+            color: var(--accent-color);
+        }
+        .project-card, .skill-category-card {
+            background-color: var(--card-bg-color);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .project-card:hover, .skill-category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.07);
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 18px;
             top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            bottom: 0;
+            width: 2px;
+            background-color: var(--border-color);
         }
-
-        .main-header .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            text-decoration: none;
-        }
-
-        .main-nav {
-            display: flex;
-            align-items: center;
-        }
-
-        .main-nav ul {
-            display: flex;
-            list-style: none;
-            margin-right: 1.5rem;
-        }
-
-        .main-nav a {
-            color: var(--text-color);
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
-        .main-nav a:hover {
-            color: var(--primary-color);
+        .timeline-dot {
+            position: absolute;
+            left: 0;
+            transform: translateX(-50%);
+            background-color: var(--accent-color);
+            border: 3px solid var(--card-bg-color);
         }
         
         /* 語言切換器樣式 */
@@ -104,614 +76,667 @@
             transition: background-color 0.3s;
         }
         .lang-switcher:hover {
-            background-color: var(--light-gray);
+            background-color: var(--border-color);
         }
         .lang-switcher i {
             margin-right: 0.5rem;
-            color: var(--secondary-color);
+            color: var(--text-color);
         }
         .lang-switcher span {
             font-weight: 600;
             color: var(--text-color);
         }
 
-        /* --- 英雄區塊 (已合併關於我) --- */
-        .hero {
-            min-height: 80vh;
-            height: auto;
-            display: flex;
-            align-items: center;
-            text-align: center;
-            padding: 4rem 0;
-        }
-
-        .hero-content h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-        
-        .hero-content h1 span {
-            color: var(--primary-color);
-        }
-
-        .hero-content p {
-            font-size: 1.1rem;
-            color: var(--secondary-color);
-            margin-bottom: 2.5rem;
-            max-width: 750px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.8;
-        }
-
-        .btn {
-            display: inline-block;
-            background: var(--primary-color);
-            color: var(--white);
-            padding: 0.8rem 2rem;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: 600;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 15px rgba(245, 138, 75, 0.4);
-        }
-
-        /* --- 區塊通用樣式 --- */
-        section {
-            padding: 4rem 0;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-        }
-        
-        section#projects, section#chatbot {
-            background-color: var(--white);
-        }
-        
-        /* 技能區塊 */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1.5rem;
-            text-align: center;
-        }
-        
-        .skill-item {
-            background: var(--white);
-            padding: 1rem;
-            border-radius: 8px;
-            box-shadow: var(--box-shadow);
-            font-weight: 600;
-            transition: transform 0.2s ease-in-out;
-        }
-        .skill-item:hover {
-            transform: scale(1.05);
-        }
-
-        /* 專案區塊 */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .project-card {
-            border: 1px solid var(--light-gray);
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: var(--box-shadow);
-            transition: transform 0.3s ease;
-        }
-        .project-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .project-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--primary-color);
-        }
-        
-        .project-card-content {
-            padding: 1.5rem;
-        }
-        
-        .project-links a {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 600;
-            margin-right: 1rem;
-        }
-        
-        .project-links a:hover {
-            text-decoration: underline;
-        }
-
-        /* --- 聊天機器人區塊樣式 --- */
+        /* --- 聊天機器人區塊樣式 (亮色主題) --- */
         #chatbot-container {
-            max-width: 600px;
+            max-width: 700px;
             margin: auto;
-            height: 500px;
-            border: 1px solid var(--light-gray);
+            height: 550px;
+            border: 1px solid var(--border-color);
             border-radius: 8px;
             display: flex;
             flex-direction: column; 
-            background: var(--white);
-            box-shadow: var(--box-shadow);
+            background: var(--card-bg-color);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             overflow: hidden; 
         }
-
         .chat-messages {
-            position: relative; /* position baseline 基準 */
             flex-grow: 1;
             padding: 1rem;
             overflow-y: auto; 
             display: flex;
             flex-direction: column;
         }
-
-        .chat-messages::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://static.wikitide.net/hololivewiki/0/03/Gigi_Murin_-_Portrait_01.png');
-            background-size: cover;
-            background-position: center;
-            opacity: 0.1; /* image opacity 設定透明度 */
-            z-index: 0;
-        }
-
         .message {
-            position: relative; /* make sure the msg is above the background image */
-            z-index: 1;         /* make sure the msg is above the background image */
             max-width: 80%;
             padding: 0.75rem 1rem;
             border-radius: 18px;
             margin-bottom: 0.5rem;
-            line-height: 1.4;
+            line-height: 1.5;
+            word-wrap: break-word;
         }
-
         .message.user {
-            background-color: var(--primary-color);
-            color: var(--white);
+            background-color: var(--accent-color);
+            color: white;
             align-self: flex-end; 
             border-bottom-right-radius: 4px;
         }
-
         .message.bot {
-            background-color: var(--light-gray);
+            background-color: #e5e7eb;
             color: var(--text-color);
             align-self: flex-start; 
             border-bottom-left-radius: 4px;
         }
-        
+        .message.bot.error {
+            background-color: #fee2e2;
+            color: #b91c1c;
+        }
         .message.bot.typing span {
             display: inline-block;
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background-color: var(--secondary-color);
+            background-color: var(--text-color);
             margin: 0 2px;
             animation: typing-animation 1.2s infinite ease-in-out;
         }
-        
         .message.bot.typing span:nth-child(2) {
             animation-delay: 0.2s;
         }
-        
         .message.bot.typing span:nth-child(3) {
             animation-delay: 0.4s;
         }
-        
         @keyframes typing-animation {
             0%, 80%, 100% { transform: scale(0); }
             40% { transform: scale(1.0); }
         }
-
         .chat-input-form {
             display: flex;
             padding: 1rem;
-            border-top: 1px solid var(--light-gray);
-            background-color: #fdfdff;
+            border-top: 1px solid var(--border-color);
+            background-color: #f9fafb;
         }
-
         .chat-input {
             flex-grow: 1;
             padding: 0.75rem;
-            border: 1px solid var(--light-gray);
+            border: 1px solid var(--border-color);
             border-radius: 20px;
             margin-right: 0.5rem;
             font-size: 1rem;
-            font-family: 'Poppins', 'Noto Sans TC', sans-serif;
+            background-color: var(--card-bg-color);
+            color: var(--text-color);
+            outline: none;
+            transition: border-color 0.3s;
         }
         .chat-input:focus {
-            outline: none;
-            border-color: var(--primary-color);
+            border-color: var(--accent-color);
         }
-
         .send-btn {
             background: var(--accent-color);
-            color: var(--text-color);
-            border: none;
-            border-radius: 50%;
-            width: 45px;
-            height: 45px;
-            font-size: 1.2rem;
-            cursor: pointer;
+            color: white;
+        }
+        .send-btn:hover {
+            background-color: #fb923c; /* orange-400 */
+        }
+        .tech-tag {
+            background-color: #f3f4f6;
+            color: #4b5563;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        .hero-section {
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: background-color 0.3s, transform 0.2s;
-        }
-        .send-btn:hover {
-            background-color: #FFD700; /* Gold */
-            transform: scale(1.1);
-        }
-
-        /* --- 聯絡區塊 --- */
-        .contact-links {
             text-align: center;
-            font-size: 2.5rem;
+            background-color: var(--card-bg-color);
         }
-        
-        .contact-links a {
-            color: var(--text-color);
-            margin: 0 1rem;
-            transition: color 0.3s ease;
-        }
-        
-        .contact-links a:hover {
-            color: var(--primary-color);
-        }
-
-        /* --- 頁尾 --- */
-        .main-footer {
-            text-align: center;
-            padding: 2rem 0;
-            background: var(--light-gray);
-            margin-top: 2rem;
-        }
-
     </style>
 </head>
-<body>
+<body class="antialiased">
 
-    <!-- Header and Navigation -->
-    <header class="main-header">
-        <div class="container">
-            <a href="#" class="logo" data-i18n-key="your_name_logo">Annie.C</a>
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="#projects" data-i18n-key="nav_projects">Projects</a></li>
-                    <li><a href="#contact" data-i18n-key="nav_contact">Contact</a></li>
-                </ul>
-                <div class="lang-switcher" id="lang-switcher">
+    <!--=============== 導覽列 ===============-->
+    <header id="navbar" class="navbar fixed top-0 left-0 w-full z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#home" class="text-2xl font-bold accent-text">Annie</a>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#about" class="text-gray-700 hover:text-orange-500 font-medium transition-colors" data-i18n-key="nav_about">關於我</a>
+                <a href="#skills" class="text-gray-700 hover:text-orange-500 font-medium transition-colors" data-i18n-key="nav_skills">技能</a>
+                <a href="#projects" class="text-gray-700 hover:text-orange-500 font-medium transition-colors" data-i18n-key="nav_projects">專案</a>
+                <a href="#qualification" class="text-gray-700 hover:text-orange-500 font-medium transition-colors" data-i18n-key="nav_journey">經歷</a>
+                <a href="#contact" class="text-gray-700 hover:text-orange-500 font-medium transition-colors" data-i18n-key="nav_contact">聯絡我</a>
+            </div>
+            <div class="flex items-center">
+                <div id="lang-switcher" class="lang-switcher mr-6">
                     <i class="fas fa-globe"></i>
                     <span id="lang-text">EN</span>
                 </div>
-            </nav>
+                <a href="https://github.com/chikuku" target="_blank" class="hidden md:block bg-orange-500 hover:bg-orange-600 text-white font-semibold px-5 py-2 rounded-full transition-transform hover:scale-105" data-i18n-key="nav_github_button">
+                    GitHub
+                </a>
+                <button id="mobile-menu-button" class="md:hidden text-2xl text-gray-800 ml-4">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white px-6 pb-4 space-y-2 border-t border-gray-200">
+            <a href="#about" class="block text-gray-700 hover:text-orange-500 py-2" data-i18n-key="nav_about">關於我</a>
+            <a href="#skills" class="block text-gray-700 hover:text-orange-500 py-2" data-i18n-key="nav_skills">技能</a>
+            <a href="#projects" class="block text-gray-700 hover:text-orange-500 py-2" data-i18n-key="nav_projects">專案</a>
+            <a href="#qualification" class="block text-gray-700 hover:text-orange-500 py-2" data-i18n-key="nav_journey">經歷</a>
+            <a href="#contact" class="block text-gray-700 hover:text-orange-500 py-2" data-i18n-key="nav_contact">聯絡我</a>
+            <a href="https://github.com/chikuku" target="_blank" class="block text-gray-700 hover:text-orange-500 py-2" data-i18n-key="nav_github_button">GitHub</a>
         </div>
     </header>
 
-    <!-- Main Content -->
     <main>
-        <!-- Hero Section -->
-        <section class="hero">
-            <div class="container hero-content">
-                <h1 data-i18n-key="hero_title">Hello, I'm <span>Annie</span></h1>
-                <p data-i18n-key="hero_subtitle">As a recent graduate from UT Dallas with a Master's in IT and Management, I blend a strong business acumen with deep technical expertise. With over 3 years of hands-on experience, I specialize in designing and implementing end-to-end machine learning workflows, from ETL pipelines to model deployment. I am particularly skilled in statistical analysis and A/B testing to drive strategic decisions and deliver measurable business impact.</p>
-                <a href="#projects" class="btn" data-i18n-key="hero_button">View My Work</a>
+        <!--=============== 首頁 / 英雄區塊 ===============-->
+        <section id="home" class="hero-section">
+            <div class="container mx-auto px-6">
+                <div class="max-w-4xl mx-auto">
+                    <h1 class="text-4xl md:text-6xl font-bold text-gray-900 leading-tight" data-i18n-key="hero_greeting">
+                        你好，我是 <span class="accent-text">Annie</span>
+                    </h1>
+                    <h2 class="text-2xl md:text-3xl font-semibold mt-4 mb-8 text-gray-600" data-i18n-key="hero_subtitle">
+                        應用資料科學家 | Applied Data Scientist
+                    </h2>
+                    <p class="text-lg text-gray-500 max-w-2xl mx-auto" data-i18n-key="hero_description">
+                        我專精於打造端到端的數據解決方案。從資料收集、清理、分析，到機器學習模型的雲端或本地部署，我具備完整的實戰經驗。
+                    </p>
+                    <div class="mt-10 flex justify-center items-center space-x-6">
+                        <a href="https://www.linkedin.com/in/yingtzu-chen/" target="_blank" class="text-gray-500 hover:text-orange-500 transition-colors">
+                            <i class="fab fa-linkedin text-4xl"></i>
+                        </a>
+                        <a href="https://github.com/chikuku" target="_blank" class="text-gray-500 hover:text-orange-500 transition-colors">
+                            <i class="fab fa-github text-4xl"></i>
+                        </a>
+                        <a href="mailto:annichenyt@gmail.com" class="text-gray-500 hover:text-orange-500 transition-colors">
+                            <i class="fas fa-envelope text-4xl"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- Skills Section -->
-        <section id="skills">
-            <div class="container">
-                <h2 class="section-title" data-i18n-key="skills_title">My Skills</h2>
-                 <div class="skills-grid">
-                    <div class="skill-item">Python (Pandas, NumPy)</div>
-                    <div class="skill-item">SQL (MySQL, Postgres)</div>
-                    <div class="skill-item">Machine Learning</div>
-                    <div class="skill-item">A/B Testing</div>
-                    <div class="skill-item">Data Visualization (Tableau)</div>
-                    <div class="skill-item">Cloud (AWS)</div>
-                    <div class="skill-item">ETL & Data Pipelines</div>
-                    <div class="skill-item">LLM Orchestration</div>
-                    <div class="skill-item">Docker & CI/CD</div>
-                    <div class="skill-item">Git</div>
-                 </div>
-            </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section id="projects">
-            <div class="container">
-                <h2 class="section-title" data-i18n-key="projects_title">Projects</h2>
-                <div class="projects-grid">
-                    <!-- Project 1: AI Chatbot (This Project!) -->
-                    <div class="project-card">
-                        <div class="project-card-content">
-                            <h3 data-i18n-key="project1_title">Portfolio AI Assistant</h3>
-                            <p data-i18n-key="project1_desc">An intelligent chatbot integrated into this website, built with a custom AI stack. It uses Flowise for visual workflow orchestration, OpenAI for language understanding, and is deployed on a scalable cloud architecture. The entire system is secured with a proxy layer to protect API keys.</p>
-                            <div class="project-links">
-                                <a href="#chatbot" data-i18n-key="project_demo">Live Demo</a> 
-                                <a href="https://github.com/chikuku/chikuku.github.io" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <!--=============== 關於我 ===============-->
+        <section id="about" class="py-20">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12" data-i18n-key="about_title">關於我</h2>
+                <div class="grid md:grid-cols-3 gap-10 items-center">
+                    <div class="md:col-span-1 flex justify-center">
+                        <img src="https://media.licdn.com/dms/image/v2/D5603AQHcldr9y910TA/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1695417899200?e=1759363200&v=beta&t=HDvHIeQ4aDp8RrraNNfq0p-z0RuknhZhP4NxPMktPDY" alt="關於我照片" class="rounded-full shadow-xl w-64 h-64 object-cover aspect-square">
+                    </div>
+                    <div class="md:col-span-2">
+                        <p class="text-lg text-gray-600 mb-6" data-i18n-key="about_p1">
+                            一位充滿熱情、注重細節的準資料工程師，擁有資訊技術與管理碩士學位。
+                        </p>
+                        <p class="text-lg text-gray-600 mb-8" data-i18n-key="about_p2">
+                            我在資料分析、資料庫管理和雲端運算方面擁有扎實的基礎。我渴望運用我的學術知識和專案經驗，為一個充滿活力的團隊做出貢獻，並解決真實世界的數據挑戰。
+                        </p>
+                        <div class="flex flex-wrap gap-8">
+                            <div class="text-center">
+                                <span class="text-4xl font-bold accent-text">3+</span>
+                                <p class="text-gray-500 mt-1" data-i18n-key="about_exp">年經驗</p>
+                            </div>
+                            <div class="text-center">
+                                <span class="text-4xl font-bold accent-text">10+</span>
+                                <p class="text-gray-500 mt-1" data-i18n-key="about_projects">個已完成專案</p>
+                            </div>
+                            <div class="text-center">
+                                <span class="text-4xl font-bold accent-text">2+</span>
+                                <p class="text-gray-500 mt-1" data-i18n-key="about_companies">間曾任職公司</p>
                             </div>
                         </div>
+                        <div class="mt-10">
+                            <a href="#" class="border-2 border-orange-500 text-orange-500 font-semibold py-3 px-8 rounded-full hover:bg-orange-500 hover:text-white transition-all" data-i18n-key="about_cv_button">
+                                下載履歷 <i class="fas fa-download ml-2"></i>
+                            </a>
+                        </div>
                     </div>
-                    
-                    <div class="project-card">
-                        <div class="project-card-content">
-                            <h3 data-i18n-key="project2_title">Credit Card User Credit Prediction</h3>
-                            <p data-i18n-key="project2_desc">Built, trained, and tuned supervised classification models to predict user credit ratings using a Kaggle dataset of 100k records. The project involved data preprocessing, EDA, and training multiple algorithms, with Random Forest selected as the best performer with 0.81 accuracy.</p>
-                             <div class="project-links">
-                                <a href="#" target="_blank" rel="noopener noreferrer" data-i18n-key="project_demo">Live Demo</a>
-                                <a href="#" target="_blank" rel="noopener noreferrer">GitHub</a>
+                </div>
+            </div>
+        </section>
+
+        <!--=============== 技能 ===============-->
+        <section id="skills" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-4" data-i18n-key="skills_title">專業技能</h2>
+                <p class="text-center text-gray-500 mb-12" data-i18n-key="skills_subtitle">我所熟悉的技術與工具</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                    <!-- Category 1 -->
+                    <div class="skill-category-card p-6 rounded-lg">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4" data-i18n-key="skill_cat1_title">程式語言</h3>
+                        <ul class="space-y-3 text-gray-600">
+                            <li class="flex items-start"><i class="fas fa-check-circle text-orange-500 mt-1 mr-3"></i><span>Python (Pandas, Numpy, Django)</span></li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-orange-500 mt-1 mr-3"></i><span>Git (Version Control)</span></li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-orange-500 mt-1 mr-3"></i><span>SQL</span></li>
+                        </ul>
+                    </div>
+                    <!-- Category 2 -->
+                    <div class="skill-category-card p-6 rounded-lg">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4" data-i18n-key="skill_cat2_title">Machine Learning & AI</h3>
+                        <ul class="space-y-3 text-gray-600">
+                            <li class="flex items-start"><i class="fas fa-check-circle text-orange-500 mt-1 mr-3"></i><span>ML Algorithms</span></li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-orange-500 mt-1 mr-3"></i><span>A/B Testing</span></li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-orange-500 mt-1 mr-3"></i><span>LLM Orchestration</span></li>
+                        </ul>
+                    </div>
+                    <!-- Category 3 -->
+                    <div class="skill-category-card p-6 rounded-lg">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4" data-i18n-key="skill_cat3_title">Data & Analytics</h3>
+                        <ul class="space-y-3 text-gray-600">
+                            <li class="flex items-start"><i class="fas fa-check-circle text-orange-500 mt-1 mr-3"></i><span>Data Visualization (Tableau)</span></li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-orange-500 mt-1 mr-3"></i><span>ETL & Data Pipelines</span></li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-orange-500 mt-1 mr-3"></i><span>Statistical Analysis</span></li>
+                        </ul>
+                    </div>
+                    <!-- Category 4 -->
+                    <div class="skill-category-card p-6 rounded-lg">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4" data-i18n-key="skill_cat4_title">Infrastructure</h3>
+                        <ul class="space-y-3 text-gray-600">
+                            <li class="flex items-start"><i class="fas fa-check-circle text-orange-500 mt-1 mr-3"></i><span>Cloud (AWS)</span></li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-orange-500 mt-1 mr-3"></i><span>Docker & CI/CD</span></li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-orange-500 mt-1 mr-3"></i><span>System Architecture</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--=============== 專案 ===============-->
+        <section id="projects" class="py-20">
+             <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12" data-i18n-key="projects_title">專案作品</h2>
+                
+                <!-- Professional Projects -->
+                <h3 class="text-2xl font-bold text-gray-800 mb-8" data-i18n-key="projects_prof_title">職業專案</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+                    <!-- Project 1 -->
+                    <div class="project-card p-6 rounded-lg flex flex-col">
+                        <div class="flex-grow">
+                            <h4 class="text-xl font-bold text-gray-900 mb-2 flex items-center">
+                                <i class="fas fa-credit-card text-orange-500 mr-3"></i>
+                                <span data-i18n-key="prof_proj1_title">信用卡使用者信用預測</span>
+                            </h4>
+                            <p class="text-gray-600 mb-4" data-i18n-key="prof_proj1_desc">使用 Kaggle 十萬筆記錄的資料集，建立、訓練並調優監督式分類模型，以預測使用者信用評級。專案涵蓋數據前處理、探索性資料分析(EDA)，並訓練了多種算法，最終以隨機森林達到最佳的0.81準確率。</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="tech-tag">Scikit-learn</span>
+                                <span class="tech-tag">Pandas</span>
+                                <span class="tech-tag">Matplotlib</span>
+                            </div>
+                        </div>
+                        <div class="mt-auto">
+                            <a href="#" class="font-bold text-orange-500 hover:underline inline-flex items-center">
+                                <i class="fab fa-github mr-2"></i>
+                                <span data-i18n-key="project_code_button">Code</span>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- Project 2 -->
+                    <div class="project-card p-6 rounded-lg flex flex-col">
+                        <div class="flex-grow">
+                            <h4 class="text-xl font-bold text-gray-900 mb-2 flex items-center">
+                                <i class="fas fa-lightbulb text-orange-500 mr-3"></i>
+                                <span data-i18n-key="prof_proj2_title">Placeholder Project Title</span>
+                            </h4>
+                            <p class="text-gray-600 mb-4" data-i18n-key="prof_proj2_desc">This is a placeholder for your future project. You can edit this text to describe your work, the technologies used, and the outcomes achieved.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="tech-tag">Tech 1</span>
+                                <span class="tech-tag">Tech 2</span>
+                                <span class="tech-tag">Tech 3</span>
+                            </div>
+                        </div>
+                        <div class="mt-auto">
+                            <a href="#" class="font-bold text-orange-500 hover:underline inline-flex items-center">
+                                <i class="fab fa-github mr-2"></i>
+                                <span data-i18n-key="project_code_button">Code</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Featured Project -->
+                <h3 class="text-2xl font-bold text-gray-800 mb-4" data-i18n-key="projects_feat_title">特色專案</h3>
+                <div id="chatbot" class="bg-white p-8 rounded-lg shadow-xl">
+                    <h2 class="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-4" data-i18n-key="chatbot_title">與我的 AI 助理聊天</h2>
+                    <p class="text-center text-gray-500 mb-8 max-w-3xl mx-auto" data-i18n-key="chatbot_subtitle">
+                        這個助理是我從零開始打造的，它能回答關於我的技能、專案和經歷的問題。試著問問它吧！（例如：「你會哪些資料庫？」或「介紹一下你的聊天機器人專案。」）
+                    </p>
+                    <div id="chatbot-container">
+                        <!-- Chatbot UI will be injected here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--=============== 經歷 ===============-->
+        <section id="qualification" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-12" data-i18n-key="journey_title">我的旅程</h2>
+                <div class="max-w-3xl mx-auto">
+                    <div class="grid md:grid-cols-2 gap-16">
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-8 text-center" data-i18n-key="journey_education"><i class="fas fa-graduation-cap mr-2"></i> 教育背景</h3>
+                            <div class="relative timeline">
+                                <div class="mb-10 pl-10 relative">
+                                    <div class="timeline-dot h-4 w-4 rounded-full top-1"></div>
+                                    <h4 class="font-bold text-lg text-gray-800" data-i18n-key="edu1_degree">資訊技術與管理 碩士</h4>
+                                    <p class="text-orange-500" data-i18n-key="edu1_school">德州大學達拉斯分校</p>
+                                    <p class="text-sm text-gray-500 mt-1">2023 - 2025</p>
+                                </div>
+                                <div class="pl-10 relative">
+                                    <div class="timeline-dot h-4 w-4 rounded-full top-1"></div>
+                                    <h4 class="font-bold text-lg text-gray-800" data-i18n-key="edu2_degree">財務金融 學士</h4>
+                                    <p class="text-orange-500" data-i18n-key="edu2_school">國立臺灣大學</p>
+                                    <p class="text-sm text-gray-500 mt-1">2016 - 2020</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-gray-800 mb-8 text-center" data-i18n-key="journey_experience"><i class="fas fa-briefcase mr-2"></i> 工作經驗</h3>
+                            <div class="relative timeline">
+                                <div class="mb-10 pl-10 relative">
+                                    <div class="timeline-dot h-4 w-4 rounded-full top-1"></div>
+                                    <h4 class="font-bold text-lg text-gray-800" data-i18n-key="work1_role">資料分析師</h4>
+                                    <p class="text-orange-500" data-i18n-key="work1_company">國泰金控</p>
+                                    <p class="text-sm text-gray-500 mt-1">2021 - 2023</p>
+                                </div>
+                                <div class="pl-10 relative">
+                                    <div class="timeline-dot h-4 w-4 rounded-full top-1"></div>
+                                    <h4 class="font-bold text-lg text-gray-800" data-i18n-key="work2_role">研究助理</h4>
+                                    <p class="text-orange-500" data-i18n-key="work2_company">國立臺灣大學</p>
+                                    <p class="text-sm text-gray-500 mt-1">2020 - 2021</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        
-        <!-- Chatbot Section -->
-        <section id="chatbot">
-            <div class="container">
-                <h2 class="section-title" data-i18n-key="chatbot_title">Chat With My AI Assistant (Building in Progress)</h2>
-                <p style="text-align:center; max-width: 700px; margin: -2rem auto 2rem auto;" data-i18n-key="chatbot_desc">I built this chatbot from scratch to answer questions about my skills and experience. Ask it anything! (e.g., "What databases do you know?" or "Tell me about your AI assistant project.")</p>
-                <div id="chatbot-container">
-                    <!-- Chatbot UI will be injected here by JavaScript -->
+
+        <!--=============== 聯絡我 ===============-->
+        <section id="contact" class="py-20">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-4" data-i18n-key="contact_title">聯絡我</h2>
+                <p class="text-center text-gray-500 mb-8" data-i18n-key="contact_subtitle">有任何專案想法嗎？讓我們聊聊！</p>
+                <div class="flex justify-center items-center space-x-6">
+                    <a href="https://www.linkedin.com/in/yingtzu-chen/" target="_blank" class="text-gray-500 hover:text-orange-500 transition-colors">
+                        <i class="fab fa-linkedin text-4xl"></i>
+                    </a>
+                    <a href="https://github.com/chikuku" target="_blank" class="text-gray-500 hover:text-orange-500 transition-colors">
+                        <i class="fab fa-github text-4xl"></i>
+                    </a>
+                    <a href="mailto:annichenyt@gmail.com" class="text-gray-500 hover:text-orange-500 transition-colors">
+                        <i class="fas fa-envelope text-4xl"></i>
+                    </a>
                 </div>
             </div>
         </section>
-        
-        <!-- Contact Section -->
-        <section id="contact">
-            <div class="container">
-                 <h2 class="section-title" data-i18n-key="contact_title">Get In Touch</h2>
-                 <div class="contact-links">
-                     <a href="mailto:annichenyt@gmail.com"><i class="fas fa-envelope"></i></a>
-                     <a href="https://www.linkedin.com/in/yingtzu-chen/" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i></a>
-                     <a href="https://github.com/chikuku" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
-                 </div>
-            </div>
-        </section>
-
     </main>
-    
-    <!-- Footer -->
-    <footer class="main-footer">
-        <div class="container">
-            <p data-i18n-key="footer_text">&copy; 2025 Annie Chen. All rights reserved.</p>
+
+    <!--=============== 頁尾 ===============-->
+    <footer class="border-t border-gray-200 bg-white">
+        <div class="container mx-auto px-6 py-6 text-center text-gray-500">
+            <p data-i18n-key="footer_text">&copy; 2024 Annie. 版權所有。</p>
         </div>
     </footer>
 
-    <!-- All JavaScript is included inside this <script> tag for now -->
     <script>
-        // --- SMOOTH SCROLL LOGIC ---
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-        // --- I18N (INTERNATIONALIZATION) LOGIC ---
-        const translations = {
-            en: {
-                doc_title: "Annie Chen | Applied Data Scientist",
-                your_name_logo: "Annie.C",
-                nav_projects: "Projects",
-                nav_contact: "Contact",
-                lang_switcher_text: "中",
-                hero_title: "Hello, I'm <span>Annie</span>",
-                hero_subtitle: 
-                    " Curious about users<br>\
-                    Obsessed with data <br>\
-                    I am a data scientist who turns business problems into tech solutions",
-                hero_button: "View My Work",
-                skills_title: "My Skills",
-                projects_title: "Projects",
-                project1_title: "Portfolio AI Assistant",
-                project1_desc: "An intelligent chatbot integrated into this website, built with a custom AI stack.\
-                    It uses Flowise for visual workflow orchestration, OpenAI for language understanding,\
-                    and is deployed on a scalable cloud architecture.\
-                    The entire system is secured with a proxy layer to protect API keys.",
-                project2_title: "Credit Card User Credit Prediction",
-                project2_desc: "Built, trained, and tuned supervised classification models to predict user credit ratings using a Kaggle dataset of 100k records. The project involved data preprocessing, EDA, and training multiple algorithms, with Random Forest selected as the best performer with 0.81 accuracy.",
-                project_demo: "Live Demo",
-                chatbot_title: "Chat With Grem <br> \
-                    A Gigi Murin's Super Fan!",
-                chatbot_desc: 'I built this chatbot to show case my skills and love to the talent.\
-                Ask her anything about Gigi Murin!',
-                chatbot_loading: "Chatbot UI is loading...",
-                chat_placeholder: "Type your message here...",
-                contact_title: "Get In Touch",
-                footer_text: "&copy; 2025 Annie Chen. All rights reserved.",
-                chat_error: "Sorry, I'm having some trouble right now. Please try again later."
-            },
-            zh: {
-                doc_title: "Annie Chen | 應用資料科學家",
-                your_name_logo: "Annie Chen",
-                nav_projects: "專案",
-                nav_contact: "聯絡我",
-                lang_switcher_text: "EN",
-                hero_title: "你好，我是 <span>Annie Chen</span>",
-                hero_subtitle: "熱衷於打造及優化產品 <br>\
-                    挖掘市場潛在價值 <br>\
-                    擅長透過AI工具、 統計分析如A/B 測試來驅動策略決策，並創造可衡量的商業影響力。",
-                hero_button: "查看我的作品",
-                skills_title: "我的技能",
-                projects_title: "專案作品",
-                project1_title: "作品集 AI 助理",
-                project1_desc: "一個整合在此網站中的智慧型聊天機器人，使用客製化的 AI 技術棧建構。它利用 Flowise 進行視覺化工作流程編排，使用 OpenAI 進行語言理解，並部署在可擴展的雲端架構上。整個系統透過代理層進行保護，以確保 API 金鑰的安全。",
-                project2_title: "信用卡使用者信用預測",
-                project2_desc: "使用 Kaggle 十萬筆記錄的資料集，建立、訓練並調優監督式分類模型，以預測使用者信用評級。專案涵蓋數據前處理、探索性資料分析(EDA)，並訓練了決策樹、KNN、邏輯回歸等多種算法，最終以隨機森林達到最佳的0.81準確率。",
-                project_demo: "線上預覽",
-                chatbot_title: "和 Grem 聊天吧 <br>\
-                                他是 Gigi Murin 的超級粉絲！",
-                chatbot_desc: '這個聊天機器人是我從零開始打造的，用來展示我的技能以及對Gigi演員的熱愛。可以問它任何關於Gigi的事唷 \
-                                ',
-                chatbot_loading: "聊天機器人介面載入中...",
-                chat_placeholder: "在這裡輸入訊息...",
-                contact_title: "聯絡方式",
-                footer_text: "&copy; 2025 Annie Chen. 版權所有.",
-                chat_error: "抱歉，我現在遇到了一些問題，請稍後再試。"
-            }
-        };
-        const setLanguage = (language) => {
-            document.querySelectorAll('[data-i18n-key]').forEach(element => {
-                const key = element.getAttribute('data-i18n-key');
-                if (translations[language][key]) {
-                    element.innerHTML = translations[language][key];
-                }
-            });
-            document.getElementById('lang-text').innerText = translations[language].lang_switcher_text;
-            document.documentElement.lang = language;
-            
-            const chatInput = document.getElementById('chat-input');
-            if (chatInput) {
-                chatInput.placeholder = translations[language].chat_placeholder;
-            }
-        };
-        const langSwitcher = document.getElementById('lang-switcher');
-        let currentLang = localStorage.getItem('lang') || 'en';
-        setLanguage(currentLang);
-        langSwitcher.addEventListener('click', () => {
-            currentLang = currentLang === 'en' ? 'zh' : 'en';
-            localStorage.setItem('lang', currentLang);
-            setLanguage(currentLang);
-        });
-
-        // --- CHATBOT LOGIC ---
-
-        // 我們的 Cloudflare 代理 URL (現在先用一個假的)
-        const PROXY_URL = "https://icy-flowise-01.annichenyt.workers.dev";
-
-        // 獲取將要放置聊天機器人的容器
-        const chatbotContainer = document.getElementById('chatbot-container');
-        
-        // 聊天紀錄，用來發送給 Flowise
-        let chatHistory = [];
-
-        // Chatbot UI - 渲染聊天機器人 UI 的函式
-        function renderChatbot() {
-            chatbotContainer.innerHTML = `
-                <div class="chat-messages" id="chat-messages"></div>
-                <form class="chat-input-form" id="chat-form">
-                    <input type="text" id="chat-input" class="chat-input" placeholder="" autocomplete="off">
-                    <button type="submit" class="send-btn">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </form>
-            `;
-            
-            const chatInput = document.getElementById('chat-input');
-            if (chatInput) {
-                chatInput.placeholder = translations[currentLang].chat_placeholder;
-            }
-
-            // 獲取剛剛建立的元素
-            const chatForm = document.getElementById('chat-form');
-            const chatMessages = document.getElementById('chat-messages');
-
-            // 監聽表單提交事件
-            chatForm.addEventListener('submit', async (e) => {
-                e.preventDefault(); 
-                const message = chatInput.value.trim();
-                if (!message) return; 
-
-                addMessage(message, 'user');
-                chatInput.value = ''; 
-
-                showTypingIndicator();
-
-                try {
-                    const response = await sendMessageToProxy(message);
-                    
-                    removeTypingIndicator();
-
-                    addMessage(response.text, 'bot');
-
-                } catch (error) {
-                    removeTypingIndicator();
-                    console.error("Error communicating with the proxy:", error);
-                    addMessage(translations[currentLang].chat_error, 'bot');
-                }
-            });
-        }
-
-        // 發送訊息到代理的非同步函式
-        async function sendMessageToProxy(message) {
-            const response = await fetch(PROXY_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
+        document.addEventListener('DOMContentLoaded', () => {
+            const translations = {
+                en: {
+                    doc_title: "Annie | Applied Data Scientist",
+                    nav_about: "About",
+                    nav_skills: "Skills",
+                    nav_projects: "Projects",
+                    nav_journey: "Journey",
+                    nav_contact: "Contact",
+                    nav_github_button: "GitHub",
+                    hero_greeting: "Hi, I'm <span class='accent-text'>Annie</span>",
+                    hero_subtitle: "Applied Data Scientist",
+                    hero_description: "I specialize in crafting end-to-end data solutions. My experience spans the entire project lifecycle, from data collection, cleansing, and analysis to model deployment on both cloud and on-premise infrastructures.",
+                    about_title: "About Me",
+                    about_p1: "An enthusiastic and detail-oriented aspiring Data Engineer with a Master's degree in Information Technology and Management.",
+                    about_p2: "I possess a strong foundation in data analysis, database management, and cloud computing. I'm eager to apply my academic knowledge and project experience to contribute to a dynamic team and solve real-world data challenges.",
+                    about_exp: "Years Experience",
+                    about_projects: "Completed Projects",
+                    about_companies: "Companies Worked",
+                    about_cv_button: "Download CV",
+                    skills_title: "Professional Skills",
+                    skills_subtitle: "The technologies and tools I work with",
+                    skill_cat1_title: "Programming Languages",
+                    skill_cat2_title: "Machine Learning & AI",
+                    skill_cat3_title: "Data & Analytics",
+                    skill_cat4_title: "Infrastructure",
+                    projects_title: "Projects",
+                    projects_prof_title: "Professional Projects",
+                    projects_feat_title: "Featured Project",
+                    prof_proj1_title: "Credit Card User Credit Prediction",
+                    prof_proj1_desc: "Built, trained, and tuned supervised classification models to predict user credit ratings using a Kaggle dataset of 100k records. The project involved data preprocessing, EDA, and training multiple algorithms, with Random Forest selected as the best performer with 0.81 accuracy.",
+                    prof_proj2_title: "Placeholder Project Title",
+                    prof_proj2_desc: "This is a placeholder for your future project. You can edit this text to describe your work, the technologies used, and the outcomes achieved.",
+                    project_code_button: "Code",
+                    journey_title: "My Journey",
+                    journey_education: "Education",
+                    journey_experience: "Experience",
+                    edu1_degree: "M.S. in Information Technology and Management",
+                    edu1_school: "The University of Texas at Dallas",
+                    edu2_degree: "B.S. in Finance",
+                    edu2_school: "National Taiwan University",
+                    work1_role: "Data Analyst",
+                    work1_company: "Cathay Financial Holdings",
+                    work2_role: "Research Assistant",
+                    work2_company: "National Taiwan University",
+                    chatbot_title: "Chat With My AI Assistant",
+                    chatbot_subtitle: "I built this assistant from scratch to answer questions about my skills, projects, and experience. Ask it anything! (e.g., \"What databases do you know?\" or \"Tell me about your chatbot project.\")",
+                    contact_title: "Get In Touch",
+                    contact_subtitle: "Have a project in mind? Let's connect!",
+                    footer_text: "© 2024 Annie. All Rights Reserved.",
+                    chat_placeholder: "Type your message here... (max 30 words)",
+                    chat_error: "Sorry, I'm having some trouble right now. Please try again later.",
+                    chat_word_limit_error: "Sorry, your message is too long. Please keep it under 30 words."
                 },
-                body: JSON.stringify({
-                    question: message,
-                    overrideConfig: { 
-                    history: chatHistory
-                    },  
-                }),
+                zh: {
+                    doc_title: "Annie | 應用資料科學家",
+                    nav_about: "關於我",
+                    nav_skills: "技能",
+                    nav_projects: "專案",
+                    nav_journey: "經歷",
+                    nav_contact: "聯絡我",
+                    nav_github_button: "GitHub",
+                    hero_greeting: "你好，我是 <span class='accent-text'>Annie</span>",
+                    hero_subtitle: "應用資料科學家 | Applied Data Scientist",
+                    hero_description: "我專精於打造端到端的數據解決方案。從資料收集、清理、分析，到機器學習模型的雲端或本地部署，我具備完整的實戰經驗。",
+                    about_title: "關於我",
+                    about_p1: "一位充滿熱情、注重細節的準資料工程師，擁有資訊技術與管理碩士學位。",
+                    about_p2: "我在資料分析、資料庫管理和雲端運算方面擁有扎實的基礎。我渴望運用我的學術知識和專案經驗，為一個充滿活力的團隊做出貢獻，並解決真實世界的數據挑戰。",
+                    about_exp: "年經驗",
+                    about_projects: "個已完成專案",
+                    about_companies: "間曾任職公司",
+                    about_cv_button: "下載履歷",
+                    skills_title: "專業技能",
+                    skills_subtitle: "我所熟悉的技術與工具",
+                    skill_cat1_title: "程式語言",
+                    skill_cat2_title: "機器學習 & AI",
+                    skill_cat3_title: "數據 & 分析",
+                    skill_cat4_title: "基礎設施",
+                    projects_title: "專案作品",
+                    projects_prof_title: "職業專案",
+                    projects_feat_title: "特色專案",
+                    prof_proj1_title: "信用卡使用者信用預測",
+                    prof_proj1_desc: "使用 Kaggle 十萬筆記錄的資料集，建立、訓練並調優監督式分類模型，以預測使用者信用評級。專案涵蓋數據前處理、探索性資料分析(EDA)，並訓練了多種算法，最終以隨機森林達到最佳的0.81準確率。",
+                    prof_proj2_title: "專案標題（佔位）",
+                    prof_proj2_desc: "這是一個為您未來專案準備的佔位符。您可以編輯這段文字來描述您的工作內容、使用的技術以及達成的成果。",
+                    project_code_button: "程式碼",
+                    journey_title: "我的旅程",
+                    journey_education: "教育背景",
+                    journey_experience: "工作經驗",
+                    edu1_degree: "資訊技術與管理 碩士",
+                    edu1_school: "德州大學達拉斯分校",
+                    edu2_degree: "財務金融 學士",
+                    edu2_school: "國立臺灣大學",
+                    work1_role: "資料分析師",
+                    work1_company: "國泰金控",
+                    work2_role: "研究助理",
+                    work2_company: "國立臺灣大學",
+                    chatbot_title: "與我的 AI 助理聊天",
+                    chatbot_subtitle: "這個助理是我從零開始打造的，它能回答關於我的技能、專案和經歷的問題。試著問問它吧！（例如：「你會哪些資料庫？」或「介紹一下你的聊天機器人專案。」）",
+                    contact_title: "聯絡我",
+                    contact_subtitle: "有任何專案想法嗎？讓我們聊聊！",
+                    footer_text: "© 2024 Annie. 版權所有。",
+                    chat_placeholder: "在這裡輸入訊息... (最多 30 字)",
+                    chat_error: "抱歉，我現在遇到了一些問題，請稍後再試。",
+                    chat_word_limit_error: "抱歉，您的訊息太長了。請限制在 30 個字以內。"
+                }
+            };
+
+            let currentLang = localStorage.getItem('lang') || 'zh';
+
+            const setLanguage = (language) => {
+                currentLang = language;
+                localStorage.setItem('lang', currentLang);
+                document.documentElement.lang = language;
+
+                document.querySelectorAll('[data-i18n-key]').forEach(element => {
+                    const key = element.getAttribute('data-i18n-key');
+                    if (translations[language][key]) {
+                        element.innerHTML = translations[language][key];
+                    }
+                });
+                
+                document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
+                    const key = element.getAttribute('data-i18n-placeholder');
+                    if (translations[language][key]) {
+                        element.placeholder = translations[language][key];
+                    }
+                });
+
+                document.getElementById('lang-text').innerText = language === 'en' ? '中' : 'EN';
+
+                const chatInput = document.getElementById('chat-input');
+                if (chatInput) {
+                    chatInput.placeholder = translations[language].chat_placeholder;
+                }
+            };
+
+            document.getElementById('lang-switcher').addEventListener('click', () => {
+                const newLang = currentLang === 'en' ? 'zh' : 'en';
+                setLanguage(newLang);
             });
+            
+            setLanguage(currentLang);
 
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+            // --- CHATBOT LOGIC ---
+            const PROXY_URL = "test";
+            const chatbotContainer = document.getElementById('chatbot-container');
+            let chatHistory = [];
+
+            function renderChatbot() {
+                chatbotContainer.innerHTML = `
+                    <div class="chat-messages" id="chat-messages"></div>
+                    <form class="chat-input-form" id="chat-form">
+                        <input type="text" id="chat-input" class="chat-input" placeholder="${translations[currentLang].chat_placeholder}" autocomplete="off" maxlength="250">
+                        <button type="submit" class="send-btn w-11 h-11 rounded-full flex items-center justify-center transition-transform hover:scale-110"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                `;
+
+                document.getElementById('chat-form').addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const chatInput = document.getElementById('chat-input');
+                    const message = chatInput.value.trim();
+                    if (!message) return;
+
+                    const wordCount = message.split(/\s+/).filter(word => word.length > 0).length;
+                    if (wordCount > 30) {
+                        addMessage(translations[currentLang].chat_word_limit_error, 'bot', true);
+                        return;
+                    }
+
+                    addMessage(message, 'user');
+                    chatInput.value = '';
+                    showTypingIndicator();
+
+                    try {
+                        const response = await sendMessageToProxy(message);
+                        removeTypingIndicator();
+                        addMessage(response.text, 'bot');
+                    } catch (error) {
+                        removeTypingIndicator();
+                        console.error("Error communicating with the proxy:", error);
+                        addMessage(translations[currentLang].chat_error, 'bot', true);
+                    }
+                });
             }
 
-            const data = await response.json();
-            
-            chatHistory.push({ type: 'human', message: message });
-            chatHistory.push({ type: 'ai', message: data.text });
-            
-            return data;
-        }
-
-        // 新增訊息到對話框的函式
-        function addMessage(text, type) {
-            const chatMessages = document.getElementById('chat-messages');
-            const messageElement = document.createElement('div');
-            messageElement.classList.add('message', type);
-            messageElement.textContent = text;
-            chatMessages.appendChild(messageElement);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        // 顯示「正在輸入中...」的函式
-        function showTypingIndicator() {
-            const chatMessages = document.getElementById('chat-messages');
-            const typingIndicator = document.createElement('div');
-            typingIndicator.id = 'typing-indicator';
-            typingIndicator.classList.add('message', 'bot', 'typing');
-            typingIndicator.innerHTML = `<span></span><span></span><span></span>`;
-            chatMessages.appendChild(typingIndicator);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        // 移除「正在輸入中...」的函式
-        function removeTypingIndicator() {
-            const typingIndicator = document.getElementById('typing-indicator');
-            if (typingIndicator) {
-                typingIndicator.remove();
+            function addMessage(text, type, isError = false) {
+                const chatMessages = document.getElementById('chat-messages');
+                const msg = document.createElement('div');
+                msg.classList.add('message', type);
+                if (isError) {
+                    msg.classList.add('error');
+                }
+                msg.textContent = text;
+                chatMessages.appendChild(msg);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
             }
-        }
 
-        // --- 程式進入點 ---
-        window.addEventListener('DOMContentLoaded', renderChatbot);
-        
+            function showTypingIndicator() {
+                const chatMessages = document.getElementById('chat-messages');
+                if (document.getElementById('typing-indicator')) return;
+                const indicator = document.createElement('div');
+                indicator.id = 'typing-indicator';
+                indicator.classList.add('message', 'bot', 'typing');
+                indicator.innerHTML = `<span></span><span></span><span></span>`;
+                chatMessages.appendChild(indicator);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            function removeTypingIndicator() {
+                const indicator = document.getElementById('typing-indicator');
+                if (indicator) indicator.remove();
+            }
+            
+            async function sendMessageToProxy(message) {
+                const response = await fetch(PROXY_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        question: message,
+                        overrideConfig: { history: chatHistory },  
+                    }),
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                
+                chatHistory.push({ type: 'human', message: message });
+                chatHistory.push({ type: 'ai', message: data.text });
+                
+                return data;
+            }
+
+            renderChatbot();
+        });
+
+        const navbar = document.getElementById('navbar');
+        window.onscroll = () => {
+            if (window.scrollY > 50) navbar.classList.add("navbar-scrolled");
+            else navbar.classList.remove("navbar-scrolled");
+        };
+
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
     </script>
+
 </body>
 </html>
