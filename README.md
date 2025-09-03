@@ -1,4 +1,4 @@
-# Annie Chen's Personal Portfolio Website
+# Annie's Personal Portfolio Website
 
 Welcome! This site showcases my working experience and my love for turning whimsical ideas into real-world products from 0 to 1.
 It’s a static-first website with an embedded, LLM-powered AI chatroom. The site shows how I connect market/user research, data analysis, and lean AI prototypes before scaling to production. 
