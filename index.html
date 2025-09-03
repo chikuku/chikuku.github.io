@@ -178,6 +178,11 @@
         .send-btn:hover {
             background-color: #fb923c; /* orange-400 */
         }
+        .send-btn:disabled {
+            background-color: #9ca3af; /* gray-400 */
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
         .tech-tag {
             background-color: #f3f4f6;
             color: #4b5563;
@@ -536,9 +541,9 @@
                     contact_title: "Get In Touch",
                     contact_subtitle: "Have a project in mind? Let's connect!",
                     footer_text: "© 2024 Annie. All Rights Reserved.",
-                    chat_placeholder: "Type your message here... (max 35 words)",
+                    chat_placeholder: "Type your message here... (max 50 words)",
                     chat_error: "Sorry, I'm having some trouble right now. Please try again later.",
-                    chat_word_limit_error: "Sorry, your message is too long. Please keep it under 35 words."
+                    chat_word_limit_error: "Sorry, your message is too long. Please keep it under 50 words."
                 },
                 zh: {
                     doc_title: "Annie | 應用資料科學家",
@@ -587,10 +592,10 @@
                     chatbot_subtitle: "這個機器人是我從零開始打造的，它能回答關於我的技能、專案和經歷的問題。試著問問它吧！（例如：「你會哪些資料庫？」或「介紹一下你的聊天機器人專案。」）",
                     contact_title: "聯絡我",
                     contact_subtitle: "有任何專案想法嗎？讓我們聊聊！",
-                    footer_text: "© 2024 Annie. 版權所有。",
-                    chat_placeholder: "在這裡輸入訊息... (最多 35 字)",
+                    footer_text: "© 2025 Annie. 版權所有。",
+                    chat_placeholder: "在這裡輸入訊息... (最多 50 字)",
                     chat_error: "抱歉，我現在遇到了一些問題，請稍後再試。",
-                    chat_word_limit_error: "抱歉，您的訊息太長了。請限制在 35 個字以內。"
+                    chat_word_limit_error: "抱歉，您的訊息太長了。請限制在 50 個字以內。"
                 }
             };
 
@@ -646,20 +651,22 @@
                                 <span data-i18n-key="chars_remaining">${translations[currentLang].chars_remaining}</span>
                             </div>
                         </div>
-                        <button type="submit" class="send-btn w-11 h-11 rounded-full flex items-center justify-center transition-transform hover:scale-110 ml-2 self-end mb-1 flex-shrink-0"><i class="fas fa-paper-plane"></i></button>
+                        <button type="submit" class="send-btn w-11 h-11 rounded-full flex items-center justify-center transition-transform hover:scale-105 ml-2 self-end mb-1 flex-shrink-0"><i class="fas fa-paper-plane"></i></button>
+
                     </form>
                 `;
                 const chatInput = document.getElementById('chat-input');
                 const charCounter = document.getElementById('char-counter');
                 const counterContainer = document.getElementById('counter-container');
-                const message = chatInput.value.trim();
-                const MAX_CHARS = 35;
+                const sendBtn = document.getElementById('chat-form').querySelector('.send-btn');
+                const MAX_CHARS = 50;
 
                 chatInput.addEventListener('input', () => {
                     const message = chatInput.value;
                     
                     if (message === '') {
                         counterContainer.style.display = 'none';
+                        sendBtn.disabled = false;
                         return;
                     }
                     counterContainer.style.display = 'block';
@@ -667,6 +674,7 @@
                     const remaining = MAX_CHARS - charCount;
 
                     charCounter.textContent = remaining;
+                    sendBtn.disabled = remaining < 0;
 
                     if (remaining < 0) {
                         counterContainer.classList.add('text-red-500');
@@ -682,20 +690,13 @@
 
                 document.getElementById('chat-form').addEventListener('submit', async (e) => {
                     e.preventDefault();
-                    const message = chatInput.value.trim();
-                    if (!message) return;
-                    
-
-                    const charCount = message.length;
-                    if (charCount > MAX_CHARS) {
-                        addMessage(translations[currentLang].chat_word_limit_error, 'bot', true);
+                    if (!message || sendBtn.disabled) {
                         return;
                     }
 
                     addMessage(message, 'user');
                     chatInput.value = '';
-                    counterContainer.style.display = 'none';
-                    charCounter.textContent = MAX_CHARS;
+                    chatInput.dispatchEvent(new Event('input'));
 
                     showTypingIndicator();
 
