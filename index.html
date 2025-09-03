@@ -536,9 +536,9 @@
                     contact_title: "Get In Touch",
                     contact_subtitle: "Have a project in mind? Let's connect!",
                     footer_text: "© 2024 Annie. All Rights Reserved.",
-                    chat_placeholder: "Type your message here... (max 30 words)",
+                    chat_placeholder: "Type your message here... (max 35 words)",
                     chat_error: "Sorry, I'm having some trouble right now. Please try again later.",
-                    chat_word_limit_error: "Sorry, your message is too long. Please keep it under 30 words."
+                    chat_word_limit_error: "Sorry, your message is too long. Please keep it under 35 words."
                 },
                 zh: {
                     doc_title: "Annie | 應用資料科學家",
@@ -588,9 +588,9 @@
                     contact_title: "聯絡我",
                     contact_subtitle: "有任何專案想法嗎？讓我們聊聊！",
                     footer_text: "© 2024 Annie. 版權所有。",
-                    chat_placeholder: "在這裡輸入訊息... (最多 30 字)",
+                    chat_placeholder: "在這裡輸入訊息... (最多 35 字)",
                     chat_error: "抱歉，我現在遇到了一些問題，請稍後再試。",
-                    chat_word_limit_error: "抱歉，您的訊息太長了。請限制在 30 個字以內。"
+                    chat_word_limit_error: "抱歉，您的訊息太長了。請限制在 35 個字以內。"
                 }
             };
 
@@ -631,7 +631,7 @@
             setLanguage(currentLang);
 
             // --- CHATBOT LOGIC ---
-            const PROXY_URL = "test";
+            const PROXY_URL = "https://icy-flowise-01.annichenyt.workers.dev";
             const chatbotContainer = document.getElementById('chatbot-container');
             let chatHistory = [];
 
@@ -639,25 +639,64 @@
                 chatbotContainer.innerHTML = `
                     <div class="chat-messages" id="chat-messages"></div>
                     <form class="chat-input-form" id="chat-form">
-                        <input type="text" id="chat-input" class="chat-input" placeholder="${translations[currentLang].chat_placeholder}" autocomplete="off" maxlength="250">
-                        <button type="submit" class="send-btn w-11 h-11 rounded-full flex items-center justify-center transition-transform hover:scale-110"><i class="fas fa-paper-plane"></i></button>
+                        <div class="flex-grow">
+                            <input type="text" id="chat-input" class="chat-input w-full" placeholder="${translations[currentLang].chat_placeholder}" autocomplete="off">
+                            <div id="counter-container" class="text-right text-xs text-gray-500 mt-1 pr-2" style="display: none;">
+                                <span id="char-counter">150</span>
+                                <span data-i18n-key="chars_remaining">${translations[currentLang].chars_remaining}</span>
+                            </div>
+                        </div>
+                        <button type="submit" class="send-btn w-11 h-11 rounded-full flex items-center justify-center transition-transform hover:scale-110 ml-2 self-end mb-1 flex-shrink-0"><i class="fas fa-paper-plane"></i></button>
                     </form>
                 `;
+                const chatInput = document.getElementById('chat-input');
+                const charCounter = document.getElementById('char-counter');
+                const counterContainer = document.getElementById('counter-container');
+                const message = chatInput.value.trim();
+                const MAX_CHARS = 35;
+
+                chatInput.addEventListener('input', () => {
+                    const message = chatInput.value;
+                    
+                    if (message === '') {
+                        counterContainer.style.display = 'none';
+                        return;
+                    }
+                    counterContainer.style.display = 'block';
+                    const charCount = message.length;
+                    const remaining = MAX_CHARS - charCount;
+
+                    charCounter.textContent = remaining;
+
+                    if (remaining < 0) {
+                        counterContainer.classList.add('text-red-500');
+                        counterContainer.classList.remove('text-gray-500');
+                    } else if (remaining <= 20) {
+                        counterContainer.classList.add('text-red-500');
+                        counterContainer.classList.remove('text-gray-500');
+                    } else {
+                        counterContainer.classList.remove('text-red-500');
+                        counterContainer.classList.add('text-gray-500');
+                    }
+                });
 
                 document.getElementById('chat-form').addEventListener('submit', async (e) => {
                     e.preventDefault();
-                    const chatInput = document.getElementById('chat-input');
                     const message = chatInput.value.trim();
                     if (!message) return;
+                    
 
-                    const wordCount = message.split(/\s+/).filter(word => word.length > 0).length;
-                    if (wordCount > 30) {
+                    const charCount = message.length;
+                    if (charCount > MAX_CHARS) {
                         addMessage(translations[currentLang].chat_word_limit_error, 'bot', true);
                         return;
                     }
 
                     addMessage(message, 'user');
                     chatInput.value = '';
+                    counterContainer.style.display = 'none';
+                    charCounter.textContent = MAX_CHARS;
+
                     showTypingIndicator();
 
                     try {
