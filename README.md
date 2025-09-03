@@ -36,11 +36,11 @@ flowchart TB
   CF --> Pages
   CF --> ChatUI
 
-  %% Chatbot path: UI -> Cloudflare Worker -> Railway
+  %% Chatbot path: UI -> Cloudflare Worker -> Private_Server
   CFWorker[Cloudflare Worker: secure API proxy]
-  Railway[Railway: Backend API]
+  Private_Server[Private_Server: Backend API]
   ChatUI -->|HTTPS /api/*| CFWorker
-  CFWorker --> Railway
+  CFWorker --> Private_Server
 ```
 
 **LLM AI Chatbot Data Flow**
@@ -51,7 +51,7 @@ flowchart LR
   User([User])
   CF[Cloudflare Proxy / CDN]
 
-  subgraph Railway[Railway: Server + DB]
+  subgraph Private_server[VM in Private Data Center: Server + DB]
     direction TB
     API[Backend API / Server]
     Flowise[Flowise LLM Orchestrator + RAG]
